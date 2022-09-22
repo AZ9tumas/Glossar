@@ -19,6 +19,7 @@ while True:
     scan_status = sc.scan() # Scanning the literals
 
     if not scan_status: exit()
+    if sc.tokens == []: continue
 
     #sc.printTokens() # Tokens displayed for debugging purposes
 
