@@ -26,6 +26,7 @@ class Parse:
         self.exp()
         if not self.curr or self.curr.token != tok_rbr:
             self.displayError("Error: Expected ')' to close '('")
+        self.advance()
 
     def factor(self):
         if not self.curr: self.displayError("Error: Syntax error"); return
