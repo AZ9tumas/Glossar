@@ -28,11 +28,11 @@ while True:
     parseStatus = parsing.exp()
     if not parseStatus: exit()
 
-    #print(parsing.instructions)
+    print(parsing.instructions)
 
     execution = VM(parsing.instructions, fileName)
     runStatus = execution.execute()
 
-    if fileName == '<stdin>': print(execution.stack[0])
+    if fileName == '<stdin>' and len(execution.stack) > 0: print(execution.stack[0])
 
     if not runStatus: exit()
