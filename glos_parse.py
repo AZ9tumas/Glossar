@@ -54,6 +54,10 @@ class Parse:
             self.add_instruction(Constant(self.curr))
             self.advance()
             return True
+        elif self.curr.token == tok_str:
+            self.add_instruction(Constant(self.curr))
+            self.advance()
+            return True
         elif self.curr.token == tok_sub:
             # Unary / Negate
             op = self.curr
