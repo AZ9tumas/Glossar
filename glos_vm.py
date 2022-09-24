@@ -39,6 +39,9 @@ class VM:
             if self.curr.token == tok_num:
                 self.push(self.curr)
                 self.advance()
+            elif self.curr.token == tok_str:
+                self.push(self.curr)
+                self.advance()
 
             elif self.curr.token == tok_idn:
                 # Variables will be added soon
@@ -54,9 +57,19 @@ class VM:
 
                 final = None
 
+                blacklist = {
+                    tok_str: (tok_sub, tok_negate, tok_div)
+                }
+
+                tok = a_tok.token in blacklist and a_tok.token or b_tok.token in blacklist and b_tok.token or None
+                if tok and self.curr.token in blacklist[tok]: return self.displayError(f"Error: Cannot pefrorm {self.curr.token} to {a_tok.token} and {b_tok.token}")
+
                 if self.curr.token == tok_add:
                     final = a + b
                 elif self.curr.token == tok_mul:
+                    if isinstance(a, str) and isinstance(b, float): b = int(b)
+                    elif isinstance(b, str) and isinstance(a, float): a = int(a)
+
                     final = a * b
 
                 elif self.curr.token == tok_negate:
